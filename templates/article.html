@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article.title }}</title>
+    {{ bootstrap.load_css() }}
+</head>
+<body>
+    <div class="container mt-4">
+        <h1><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h1>
+        <p>{{ article.description }}</p>
+        <div>
+            {% for tag in article.tags %}
+            <span class="badge bg-secondary">{{ tag.name }}</span>
+            {% endfor %}
+        </div>
+        <hr>
+        <h3>Comments</h3>
+        {% for comment in article.comments %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <p class="card-text">{{ comment.content }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        <form method="POST" class="mt-4">
+            <div class="mb-3">
+                <label for="content" class="form-label">Add Comment</label>
+                <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    {{ bootstrap.load_js() }}
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Aggregator</title>
+    {{ bootstrap.load_css() }}
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>News Aggregator</h1>
+        <a href="{{ url_for('submit') }}" class="btn btn-primary mb-4">Submit Article</a>
+        <div class="list-group">
+            {% for article in articles %}
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <h3><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h3>
+                    <form action="{{ url_for('vote', article_id=article.id) }}" method="post">
+                        <button type="submit" class="btn btn-success">↑ {{ article.votes }}</button>
+                    </form>
+                </div>
+                <p>{{ article.description }}</p>
+                <div>
+                    {% for tag in article.tags %}
+                    <span class="badge bg-secondary">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+                <a href="{{ url_for('article', article_id=article.id) }}" class="btn btn-link">Comments</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {{ bootstrap.load_js() }}
+</body>
+</html>
